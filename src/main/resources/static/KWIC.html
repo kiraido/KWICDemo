@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>KWICDemo</title>
+</head>
+<body>
+<h1>文件实现KWIC</h1>
+<form id="fileUploadForm" action="/processFile" method="post" enctype="multipart/form-data"
+      onsubmit="return processFile(event)">
+    <label for="file">选择要上传的文件：</label>
+    <input type="file" name="file" id="file" accept=".txt">
+    <br>
+    <label for="method">选择软件体系结构：</label>
+    <select name="method" id="method">
+        <option value="1">主程序-子程序</option>
+        <option value="2">面向对象</option>
+        <option value="3">事件系统</option>
+        <option value="4">管道-过滤</option>
+    </select>
+    <br>
+    <input type="submit" name="submit" value="处理文件">
+</form>
+<p id="result"></p>
+
+<script>
+    function processFile(event) {
+        event.preventDefault(); // 阻止表单默认提交行为
+        var form = document.getElementById("fileUploadForm");
+        var fileInput = document.getElementById("file");
+        var methodSelect = document.getElementById("method");
+        var resultDisplay = document.getElementById("result");
+
+        var formData = new FormData(form);
+        formData.append("method", methodSelect.value);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/processFile");
+        xhr.responseType = "text"; // 指定响应类型为文本
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+// 在显示之前将换行符替换为 HTML 换行标签
+                    resultDisplay.innerHTML = xhr.responseText.replace("\/n", "<br>");
+                    console.log(resultDisplay.innerHTML)
+                    // 显示文件内容
+                    resultDisplay.innerText = xhr.responseText;
+                }
+            }
+        };
+        xhr.send(formData);
+    }
+</script>
+</body>
+<style>
+    #result {
+        font-size: 16px; /* 设置字体大小，可以根据需要调整 */
+        width: 1000px; /* 设置宽度，可以根据需要调整 */
+        height: 1000px; /* 设置高度，可以根据需要调整 */
+    }
+</style>
+</html>

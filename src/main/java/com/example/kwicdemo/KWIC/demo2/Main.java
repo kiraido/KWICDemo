@@ -15,7 +15,6 @@ public class Main {
         //alphabetizer.sort();
         //Output output = new Output(alphabetizer.getKwicList());
         //output.output("C:\\Users\\lei kai\\Desktop\\KWIC\\3.txt");
-
     }
 
     public static String run2(File file) throws IOException {

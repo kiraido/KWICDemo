@@ -39,7 +39,7 @@
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-// 在显示之前将换行符替换为 HTML 换行标签
+                    // 在显示之前将换行符替换为 HTML 换行标签
                     resultDisplay.innerHTML = xhr.responseText.replace("\/n", "<br>");
                     console.log(resultDisplay.innerHTML)
                     // 显示文件内容
